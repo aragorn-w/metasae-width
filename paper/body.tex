@@ -1,0 +1,24 @@
+\begin{abstract}
+Meta-SAEs' decomposition of a parent sparse autoencoder's (SAE) decoder directions into meta-latents has been used to show that SAE latents are not always atomic.
+To our knowledge, no published study asks whether meta-SAEs are reproducible across seeds.
+We train meta-SAEs on a GPT-2 small reference setup adapted from \citet{leask2025canonical} and, at widths 1/4 to 1/128, on a model size sweep of five Gemma Scope 2 parents (trained on Gemma 3 270M to 27B).
+We also train ``noise twin'' meta-SAEs on unit-normalized draws of a Gaussian fitted (mean and covariance) to the real parent's unit decoder directions, then use this baseline to compute excess agreement as real raw agreement---where agreement is the mean decoder cosine of one-to-one matched meta-latents over all pairs of eight seeds---minus the noise twins'.
+In the reference, 64.0\% of meta-latents recur at cosine 0.7 or more, against 0.07\% for the noise twins.
+On the Gemma 3 size sweep, at most 29.9\% recur while a bifurcated trend in width appears: by excess agreement, width 1/4 is best for sizes 270M and 1B (at most 7.7\% recurring) while widths 1/32 to 1/128 all beat 1/4 for sizes 4B to 27B (with 1.8 to 3.3 times the recurring fraction at width 1/4).
+This contrasts with how raw agreement peaks at width 1/128 for four of five sizes, pointing to excess agreement as a promising metric for choosing meta-SAE settings.
+\end{abstract}
+
+\input{sections/intro}
+\input{sections/related_work}
+\input{sections/setup}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\bibliography{references}
+\bibliographystyle{tmlr}
+
+\newpage
+\appendix
+\input{sections/appendix}
