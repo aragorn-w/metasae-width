@@ -1,0 +1,862 @@
+{
+ "270m": {
+  "denominator": 4,
+  "recurring": 60,
+  "nonrecurring": 15020,
+  "picks": [
+   {
+    "meta_latent": 12414,
+    "recurs_in_other_seeds": 7,
+    "fires_on": 39,
+    "parents": [
+     {
+      "id": 8750,
+      "activation": 0.79,
+      "seeds": 8,
+      "label": "LGBTQ+ issues and discussions",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "k Yellow Gold (.\\n\\nHere [[ Are]]  More Stunning",
+       " Rhinestone Tips.\\n\\nAlso [[ Has]]  8",
+       " case.\\n\\nQ. What [[ Is]]  the Basis",
+       "THIS UNIQUE CAST MOUNT ALLOW [[S]]  YOU TO",
+       " Borders Allaire State Park And [[ Has]]  Endless Poss",
+       " Adrian. \"How to Find [[ Your]]  External IP"
+      ]
+     },
+     {
+      "id": 19590,
+      "activation": 0.731,
+      "seeds": 8,
+      "label": "suffocating world climate",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " titled “Opportunities for Accelerating [[ Bi]] ologics",
+       "gments of Getting Out Ahead versus [[ Res]] ponding After",
+       " Investor Status and the Influence of [[ Dist]] ant Dis",
+       " Forecast Disaggregation on Investors' [[ Sus]] ceptibility",
+       "18) \"Estimating [[ Def]] ect Rect",
+       " Let’s Erase the [[ St]] igma,"
+      ]
+     },
+     {
+      "id": 52339,
+      "activation": 0.7218,
+      "seeds": 8,
+      "label": "contact forms, dependencies, data integration",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "-Aged, Flavoured [[,]]  Fruit and",
+       " of creativity (Person, Product [[,]]  technique,",
+       ", Efficiency Engineer, Plant Engineer [[,]]  Maintenance Engineer",
+       "\\n\\nCement Plant, Cement Machinery [[,]]  Cement Production",
+       "melt, Light-cured [[,]]  Others,",
+       " Masculinity; Race; Sexuality [[;]]  Gender;"
+      ]
+     },
+     {
+      "id": 19156,
+      "activation": 0.5271,
+      "seeds": 8,
+      "label": "card games",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "surgical Face And Body Treatments Available [[.]]  Whether You",
+       " by a guarantee.\\n\\n3 [[.]]  Look for",
+       "\\n\\nTurkle, Sherry. [[ “]]  Design and",
+       " Be Disappointed.\\n\\n2 [[.]]  Guangzhou X",
+       " Kitchen To Enjoy Your Morning Views [[.]]  Perfect For",
+       " To Suit Different Needs Of Consumers [[.]] \\n\\nWe"
+      ]
+     },
+     {
+      "id": 14534,
+      "activation": 0.4745,
+      "seeds": 8,
+      "label": "leads to characteristics",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Lorikeet.\\n\\nCopyright [[ Notice]] : This",
+       " one coming up.\\n\\nPrevious [[ Post]] Previous But",
+       " their secret dens.\\n\\nPrevious [[ Post]]  Are crime",
+       " Discounts also available!\\n\\nPrevious [[ Post]]  B-",
+       " are requested.\\n\\n- Teaching [[ Experience]]  will be",
+       " those tea cups!\\n\\nPrevious [[ Post]] Ajiri"
+      ]
+     },
+     {
+      "id": 20832,
+      "activation": 0.4477,
+      "seeds": 8,
+      "label": "social justice, rat, topic, avocado",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " of diff: LANG, LC [[_]] ALL,",
+       " ... INSERT: adds OPTION [[_]] SETUP_",
+       "222 -c NET [[_]] LOCAL -",
+       " Configurator makes use of LD [[_]] LIBRARY_",
+       " llvm::dbgs(), DEBUG [[_]] TYPE,",
+       " run on each link. UPDATE [[_]] WEIGHTS"
+      ]
+     },
+     {
+      "id": 2808,
+      "activation": 0.3986,
+      "seeds": 8,
+      "label": "environment variable, NetEnt, html",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       ", offering a full and flexible [[ Window]]  Cleaning Service",
+       " or otherwise disclose or use any [[ Aggregate]]  Information,",
+       "From the date you become a [[ Member]]  of The",
+       "tees, secret current applications and [[ Improved]]  attempt value",
+       "in with an on screen provided [[ Audio]]  Pin #",
+       " both be on the side of [[ Right]] .\\n\\n"
+      ]
+     }
+    ]
+   },
+   {
+    "meta_latent": 15,
+    "recurs_in_other_seeds": 0,
+    "fires_on": 17,
+    "parents": [
+     {
+      "id": 64953,
+      "activation": 0.6151,
+      "seeds": 5,
+      "label": "language, with, on, this",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " mine mill. A wide variety [[ of]]  quartz stone",
+       " steel sheets. A wide variety [[ of]]  alloy steel",
+       " are doors. A wide variety [[ of]]  steel ",
+       " quartz stone. A wide variety [[ of]]  silica ore",
+       " vibrating screen. A wide variety [[ of]]  gold vibrating",
+       " are crusher. A wide variety [[ of]]  coal washing"
+      ]
+     },
+     {
+      "id": 41695,
+      "activation": 0.5599,
+      "seeds": 2,
+      "label": "foreign languages",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "<bos>Hi [[ there]] ! I",
+       " Lip Toppers?\\n\\nHi [[ there]] ! For",
+       " to all operations.\\n\\nHi [[ there]] ! Can",
+       " newsletters by email?\\n\\nHey [[ there]] . I",
+       " to visit then.\\n\\nHey [[ there]] . I",
+       " to visit then.\\n\\nHi [[ there]] . I"
+      ]
+     },
+     {
+      "id": 25172,
+      "activation": 0.4214,
+      "seeds": 1,
+      "label": "cotton socks",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Of course there is only so [[ much]]  we can",
+       ", but there is only so [[ much]]  you can",
+       "? There's only so [[ much]]  I could",
+       " is that there is only so [[ much]]  money a",
+       ", CAThere is only so [[ much]]  incentive we",
+       "? There's only so [[ much]]  you can"
+      ]
+     },
+     {
+      "id": 34710,
+      "activation": 0.4009,
+      "seeds": 1,
+      "label": "streaming platform, space, WiFi password",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "2.25 in. [[ H]] .\\n\\n",
+       " day. Any more than that [[ only]]  contributes",
+       ", Brazil, and a couple [[ of]]  other South",
+       " AHISD Nutrition Services Department [[ thanks]]  you for",
+       " trade or rent your personal information [[ to]]  others unless",
+       " days.\\n\\nIn-season [[ only]] : The"
+      ]
+     },
+     {
+      "id": 58220,
+      "activation": 0.3888,
+      "seeds": 1,
+      "label": "received message",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       ", 2018 [[ at]]  1",
+       "March general meeting for the April [[ scholarship]]  opportunity.",
+       ", J.N.(  [[2]] 00",
+       " being aware that families are entr [[usting]]  us with",
+       "3BlackAngy .Mil [[ana]] MZh",
+       " that the exit of non- [[bank]]  lenders and"
+      ]
+     },
+     {
+      "id": 14145,
+      "activation": 0.368,
+      "seeds": 1,
+      "label": "foreign words and gratitude",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " I’ve heard nothing but [[ praise]]  for Linda",
+       ".\\n\\nGod wants us to [[ praise]]  him and",
+       " anyone else. I'd [[ praise]]  them!",
+       " gentiles may lead them to [[ praise]]  God,",
+       " we sought professional help. I [[ praise]]  God to",
+       " us and we stop praying, [[ praising]] , reading"
+      ]
+     },
+     {
+      "id": 16364,
+      "activation": 0.3556,
+      "seeds": 1,
+      "label": "resource management",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-270m-pt",
+       "resid_post/layer_9_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "\\n\\nThis is not the first [[ time]]  that asbestos",
+       "\\n\\nThis isn’t the [[ first]]  time that",
+       "\\n\\nThis is not the first [[ time]]  Jaguar has",
+       "\\n\\nThis isn’t the [[ first]]  time controversy",
+       "\\n\\nThis isn't the [[ first]]  controversy surrounding",
+       "It’s not the first [[ time]]  the government"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "4b": {
+  "denominator": 128,
+  "recurring": 32,
+  "nonrecurring": 313,
+  "picks": [
+   {
+    "meta_latent": 451,
+    "recurs_in_other_seeds": 7,
+    "fires_on": 495,
+    "parents": [
+     {
+      "id": 5344,
+      "activation": 0.7927,
+      "seeds": 8,
+      "label": "science and problems",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Americans for their true worth, [[ American]]  soldiers fighting",
+       " as New York, which have [[ massive]]  numbers of",
+       "22. , for healthy [[-]] looking hair",
+       " essay called The Kitul And [[ Its]]  Uses,",
+       " been stupefied by the [[ liberal]]  Judas.",
+       ", when we come to consider [[ training]] . But"
+      ]
+     },
+     {
+      "id": 1158,
+      "activation": 0.7189,
+      "seeds": 8,
+      "label": "hope and beauty thrives",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " engaged. He expects to make [[ teaching]]  his profession",
+       ". Preston was a prominent young [[ attorney]]  of the",
+       " The Rolls do not throw much [[ light]]  on its",
+       " fields. Patient was profoundly melanch [[olic]] , silent",
+       ". It was a terribly clumsy [[ system]] . Old",
+       " of ages past—is always [[ dominant]]  in humanity"
+      ]
+     },
+     {
+      "id": 14538,
+      "activation": 0.7175,
+      "seeds": 8,
+      "label": "spatial relations",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " on dates varying from March first [[ to]]  December twenty",
+       " hanged with others—but not [[ with]]  the tailor",
+       " of Mary Bowater, wife [[ of]]  James Wright",
+       " the expenses for the new door [[ of]]  Dingwall",
+       " their places of worship at or [[ near]]  them,",
+       ". The mother is a native [[ of]]  Virginia."
+      ]
+     },
+     {
+      "id": 18173,
+      "activation": 0.6623,
+      "seeds": 8,
+      "label": "academic or technical terms",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "57 BY PERLSEA [[ COMPANY]]  AND PAR",
+       ", speaks on German rearmament [[.]]  Notice war",
+       ". 329. [[ ]] 6 Ibid",
+       "World Tomorrow\" broadcast, God [[']] s last",
+       " 1.1% in [[ ]] 19",
+       " Pantene.@ $2 for [[ ]] 7 ounces"
+      ]
+     },
+     {
+      "id": 7212,
+      "activation": 0.5803,
+      "seeds": 8,
+      "label": "chemical investigation and isolation",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " cellulase system of Trichoderma [[:]]  relationship bet",
+       ". 1961 [[.]]  Wood –",
+       " on Growth and Protein and Nucleic [[ Acid]]  Metabolism in",
+       " effect of castration, of estrogen [[ and]]  androgen injection",
+       ".85, p = [[ ]] 0.",
+       " rabbit sino-atrial node [[ myocytes]] .\\n\\n"
+      ]
+     },
+     {
+      "id": 12693,
+      "activation": 0.5802,
+      "seeds": 8,
+      "label": "meeting in, detected in, production of",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       ", killing two and wounding others [[.]]  Those on",
+       " a Soviet agent.\\n\\nS [[itte]] , a",
+       " Middle Eastern countries such as Israel [[.]] \\n\\nThe",
+       " under way, the intelligence sources [[ said]] .\\n\\n",
+       " of the assailants remains unclear [[.]] \\n\\n''",
+       " to get the petition going.\" [[\\n\\n]] \"But"
+      ]
+     },
+     {
+      "id": 9841,
+      "activation": 0.5275,
+      "seeds": 7,
+      "label": "in warm water",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " High School Music Festival was approved [[.]] \\n\\nPenn",
+       "\\n\\nson and Matthew Thomas Fountain [[.]] \\n\\nHarold",
+       " the groom, right.\\n\\n [[Host]] esses for",
+       ", Aug. 26 [[.]] \\n\\nK",
+       " party will be held at the [[ home]]  of Mrs",
+       " for this institute are being formulated [[ by]]  Albert M"
+      ]
+     }
+    ]
+   },
+   {
+    "meta_latent": 361,
+    "recurs_in_other_seeds": 0,
+    "fires_on": 424,
+    "parents": [
+     {
+      "id": 12117,
+      "activation": 0.3355,
+      "seeds": 5,
+      "label": "input and",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " up to 36 inches [[ tall]]  at the",
+       " 12:24 [[am]]  and most",
+       " the file is displayed as mp [[3]]  but when",
+       " subtly lit in white during the [[ day]] , then",
+       " Golf Course is just down the [[ street]]  a few",
+       ", takes the baby from the [[ parents]] . Now"
+      ]
+     },
+     {
+      "id": 12435,
+      "activation": 0.2964,
+      "seeds": 2,
+      "label": "hotline numbers",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " the upper reaches of Lake Wim [[ico]]  o Full",
+       " 3,000 [[ years]] ; Sne",
+       " sells for $23 on [[ Amazon]] .\\n\\n",
+       " bum balm replaces these type of [[ products]] Bicycl",
+       "’s First Chikungunya Vaccine [[ Developed]]  News",
+       " organisers we cover needlecrafts [[ seamlessly]] Brian Williams"
+      ]
+     },
+     {
+      "id": 12242,
+      "activation": 0.2838,
+      "seeds": 4,
+      "label": "It was",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " NAG LAN r4ge expo [[The]]  annual ceremony",
+       " with wonderful exhibits and family activities [[The]]  Columbus,",
+       " emergency or non-emergency applications [[One]]  of the",
+       "ize the other's approach [[SA]] HIWAL",
+       " ill or are no longer wanted [[We]]  have six",
+       " those youth are Black or Latino [[Here]] 's"
+      ]
+     },
+     {
+      "id": 3173,
+      "activation": 0.2765,
+      "seeds": 4,
+      "label": "list ending markers",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " What makes a successful marriage? [[\\n\\n]] 04",
+       " Design B London faux Pearl Clip [[ ]] 7.",
+       " buy diclofenac gel [[ uk]]  farmacia",
+       " Power Quest - Civilised? [[\\n\\n]] 26",
+       " Faster and Read More Books! [[\\n\\n]] I immediately",
+       " - What is NCRIS? [[\\n\\n]] Q1"
+      ]
+     },
+     {
+      "id": 31336,
+      "activation": 0.273,
+      "seeds": 3,
+      "label": "also and similar",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " oz porcelain souffle dishes will work [[,]]  but the",
+       "0″ is a nice size [[,]]  but choose",
+       "sheckley” for one [[,]]  and the",
+       " Florida might be a good choice [[,]]  as he",
+       " at the top of the list [[,]]  exchangers with",
+       " moon and new moon are interchangeable [[,]]  although new"
+      ]
+     },
+     {
+      "id": 15332,
+      "activation": 0.2631,
+      "seeds": 5,
+      "label": "read, monitor, apex",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " 3,000 [[ years]] ; Sne",
+       " & Make It A Reality With [[ Us]] Matt White",
+       ". Issues covered include: pedagogical [[ issues]] , such",
+       " 36 frames total per [[ page]] . Requires",
+       " bridge cables, and rigid structural [[ forms]] , such",
+       " Services can help you with this [[.]]  Use Certified"
+      ]
+     },
+     {
+      "id": 14646,
+      "activation": 0.2522,
+      "seeds": 2,
+      "label": "attributes and descriptions",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-4b-pt",
+       "resid_post/layer_17_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "17 Aurora Avenue N. [[\\n\\n]] Brief Description",
+       " a good-sized pot. [[\\n\\n]] Overall:",
+       " June 2005 [[.]]  Category:",
+       ": 288a [[.]]  Transaction:",
+       " walk through the Bruce Museum. [[\\n\\n]] Photos by",
+       "ac, Rupestris du Lot [[.]]  Plant density"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "27b": {
+  "denominator": 32,
+  "recurring": 137,
+  "nonrecurring": 903,
+  "picks": [
+   {
+    "meta_latent": 203,
+    "recurs_in_other_seeds": 7,
+    "fires_on": 95,
+    "parents": [
+     {
+      "id": 42452,
+      "activation": 0.7504,
+      "seeds": 8,
+      "label": "possessive pronouns and locations",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " meat trade.\\n\\nAt this [[ year]] ’s",
+       "<bos> growth prospects at U. [[S]] . firms",
+       " with clients at pre-move [[ coordination]]  meetings to",
+       " to avoid an electrical problem at [[ your]]  business is",
+       " (and counting) available at [[ my]]  fingers tips",
+       " Find and chat with singles at [[ our]]  online Gu"
+      ]
+     },
+     {
+      "id": 9861,
+      "activation": 0.6996,
+      "seeds": 8,
+      "label": "a an rate price",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Suppliers, Traders and Manufacturers at [[ a]]  reliable,",
+       " releases are hitting the market at [[ a]]  lightning pace",
+       " offer quality and reliable towing at [[ an]]  affordable price",
+       " offer them to the public at [[ amazing]]  discounted prices",
+       " you can see amazing photographs at [[ incredible]]  snaps.",
+       " at your events at cost- [[effective]]  rates."
+      ]
+     },
+     {
+      "id": 2996,
+      "activation": 0.6017,
+      "seeds": 8,
+      "label": "at this time",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " would be a fast project. [[ At]]  the end",
+       " beneath your feet, now. [[ At]]  this very",
+       " was a jeweled cane). [[ At]]  the end",
+       " her, all without tubes. [[ At]]  one point",
+       " pile of Penny’s junk [[ at]]  this point",
+       " for or pay to get done [[ at]]  this moment"
+      ]
+     },
+     {
+      "id": 20918,
+      "activation": 0.5233,
+      "seeds": 8,
+      "label": "at the same level",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " an array of opportunities. At [[ the]]  same time",
+       " to the initial margin requirements at [[ the]]  same time",
+       " comes down to it, at [[ the]]  end of",
+       " the Westfarmers group. At [[ the]]  end of",
+       " places you should visit. At [[ the]]  touch of",
+       " they protect against known problems at [[ the]]  expense of"
+      ]
+     },
+     {
+      "id": 18585,
+      "activation": 0.4451,
+      "seeds": 8,
+      "label": "at the",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " PPP scheme has been spreading gradually [[ at]]  the airport",
+       " seconds or some other conditions and [[ at]]  the end",
+       "3 Billion.\\n\\nWalmart is [[ at]]  the helm",
+       "\\n\\nAvailability of ratings and reports [[ at]]  website:",
+       " material made 3 sockets ( [[at]]  3",
+       " information is free of charge but [[ at]]  your own"
+      ]
+     },
+     {
+      "id": 1591,
+      "activation": 0.4247,
+      "seeds": 8,
+      "label": "at locations or events",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       ". Wright.\\n\\nJoin us [[ at]]  the Bio",
+       " spend voucher when they order online [[ at]]  Domino'",
+       " into the Radio Hall of Fame [[ at]]  the Museum",
+       " of purchase.\\n\\nNow available [[ at]]  special prices",
+       "tox is participating as a choreographer [[ at]]  the J",
+       ". Rusty is an IT professional [[ at]]  UMMC"
+      ]
+     },
+     {
+      "id": 25250,
+      "activation": 0.4206,
+      "seeds": 8,
+      "label": "mentions like @name",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " previously set on self.\\n\\n [[@]] Brad-",
+       " properties validation on isolation.\\n\\n [[@]] alberto",
+       " be selected for delete.\\n\\n [[@]] return String",
+       " Management application to use.\\n\\n [[@]] return String",
+       " be set to TRUE.\\n\\n [[@]] return String",
+       " and Cost Management application.\\n\\n [[@]] return String"
+      ]
+     }
+    ]
+   },
+   {
+    "meta_latent": 1193,
+    "recurs_in_other_seeds": 0,
+    "fires_on": 83,
+    "parents": [
+     {
+      "id": 29651,
+      "activation": 0.2695,
+      "seeds": 1,
+      "label": "foreign and punctuation",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "<bos>. [[ .]]  It can",
+       " about it here.\\n\\n. [[ .]]  . Started",
+       " about it here.\\n\\n. [[ .]]  . Members",
+       "<bos> . [[ .]]  If you",
+       " stupid . . .\\n\\n. [[ .]]  . to",
+       "8 Tenant St.In . [[ .]]  . More"
+      ]
+     },
+     {
+      "id": 25895,
+      "activation": 0.2692,
+      "seeds": 5,
+      "label": "president and minister",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "htm; “Statement from the [[ President]]  on the",
+       " to Brisbane, Australia, Prime [[ Minister]]  Shinzo",
+       "\\n\\nCasinos, Elvis imperson [[ators]] , and",
+       " - tasks like child care by [[ parents]]  into services",
+       "\\n\\nThose are the highlights, [[ but]]  there are",
+       " matter” — see “Remarks [[ by]]  former NATO"
+      ]
+     },
+     {
+      "id": 48689,
+      "activation": 0.2505,
+      "seeds": 1,
+      "label": "foreign words or phrases",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       "seam down. Roll tight [[.]]  Cut cross",
+       " submissions which are still in chronological [[ order]] .",
+       " outdoor pool, a restaurant and [[ a]]  BBQ area",
+       " swimming pool, a restaurant and [[ a]]  bar.",
+       " with the man’s sperm [[.]] \\n\\nAfter",
+       " payment on which tax is deductible [[ furnishes]]  to the"
+      ]
+     },
+     {
+      "id": 45027,
+      "activation": 0.2393,
+      "seeds": 1,
+      "label": "workers strike",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " back hereSecure a fantastic investment [[ or]]  simply enjoy",
+       " it openly, Allah knows it [[ all]] : And",
+       "\\n\\nFirst Look Harvard settles food [[ workers]]  strike.",
+       " had to. My point to [[ this]] , you",
+       " themselves: We grant them the [[ delay]]  that they"
+      ]
+     },
+     {
+      "id": 30364,
+      "activation": 0.2334,
+      "seeds": 1,
+      "label": "steps followed by colons",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " is summarized.\\n\\nStep  [[6]] : If",
+       " the application.\\n\\nACTION  [[4]] : On",
+       " for color.\\n\\nStep  [[3]] : A",
+       " Install It.\\n\\nSTEP  [[2]] : Select",
+       " and password.\\n\\nStep  [[2]] : Download",
+       " to use.\\n\\nSTEP  [[3]] : Scan"
+      ]
+     },
+     {
+      "id": 57335,
+      "activation": 0.201,
+      "seeds": 1,
+      "label": "financial, business, and planning contexts",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Filipino references).\\n\\nFor the [[ future]] , as",
+       " back the cartridges to its original [[ position]] . Don",
+       " base, walls and roofs of [[ the]]  3",
+       " coin purseEOS is designing itself [[ to]]  be a",
+       " would be the Miami Marlins [[']]  All-",
+       " years and years.\\n\\nOn [[ the]]  other hand"
+      ]
+     },
+     {
+      "id": 27906,
+      "activation": 0.1971,
+      "seeds": 2,
+      "label": "facial features and anatomical parts",
+      "label_model": "gemini-2.5-flash-lite",
+      "hf": [
+       "google/gemma-scope-2-27b-pt",
+       "resid_post/layer_31_width_65k_l0_medium"
+      ],
+      "contexts": [
+       " Vairocana’s plump [[ cheeks]]  and penetrating",
+       "5-6 cm; an [[thers]]  yellow,",
+       " with delicate features: a small [[ nose]] , small",
+       " usually contain two florets. [[ Lemmas]]  are short",
+       "It refers to maturation of an [[thers]]  and stigma",
+       "10 mm long; tep [[als]]  some joined"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

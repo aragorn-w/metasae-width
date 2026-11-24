@@ -1,0 +1,74 @@
+\section{Setup}
+
+\paragraph{Meta-SAEs.}
+As in \citet{leask2025canonical}, we use BatchTopK \citep{bussmann2024batchtopk} meta-SAEs and keep the $kB$ largest activations in each batch of $B$ rows ($k$ = 4 on average).
+The training rows are scaled to unit length.
+For the reproducibility of the reference configuration, \citeauthor{leask2024metasaerelease}'s \citeyearpar{leask2024metasaerelease} released meta-SAE obtains an explained variance of 0.5514 in our code while our eight seeds' meta-SAEs (Appendix~A) report 0.5504 to 0.5511.
+
+\paragraph{Parent SAEs.}
+The five main parent SAEs are 65,536-latent Gemma Scope 2 \texttt{l0\_medium} SAEs (JumpReLU, \citealp{rajamanoharan2024jumprelu}; \citealp{mcdougall2025gemmascope2}; released configs: L0 60) for pretrained Gemma 3 \citep{gemmateam2025gemma3,googledeepmind2025gemma3card} on the residual stream after block $N/2$ of $N$ (Table~\ref{tab:parents}).
+\citet{lmit2025gemmascope2blog} report Matryoshka training for the release but not which SAEs or widths use it.
+Since all five parent SAEs have the same latent count, widths 1/4 to 1/128 correspond to 16,384 to 512 meta-latents for each parent.
+Two 16k-latent parents, at 4B and 270M, serve as controls (Section~4.3).
+
+\begin{table}[t]
+  \caption{The five main parent SAEs and two 16k control parents, reported with their layers counted from 0 \citep{mcdougall2025gemmascope2} of $N$ blocks \citep{googledeepmind2026gemmalib}, alongside tokens and image input \citep{gemmateam2025gemma3,googledeepmind2025gemma3card}.}
+  \label{tab:parents}
+  \centering
+  \small
+  \begin{tabular}{@{}lrrrrrc@{}}
+    \toprule
+    Gemma 3 parent & Latents & Hidden size & Layer & Latents per hidden dim. & Tokens & Image input \\
+    \midrule
+    270M & 65,536 & 640 & 9 of 18 & 102.4 & 6T & no \\
+    1B & 65,536 & 1,152 & 13 of 26 & 56.9 & 2T & no \\
+    4B & 65,536 & 2,560 & 17 of 34 & 25.6 & 4T & yes \\
+    12B & 65,536 & 3,840 & 24 of 48 & 17.1 & 12T & yes \\
+    27B & 65,536 & 5,376 & 31 of 62 & 12.2 & 14T & yes \\
+    4B 16k & 16,384 & 2,560 & 17 of 34 & 6.4 & 4T & yes \\
+    270M 16k & 16,384 & 640 & 9 of 18 & 25.6 & 6T & no \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Training.}
+Each Gemma Scope 2 parent has its unit rows partitioned into one 80/10/10 split that is reused for every width and seed.
+We use Adam \citep{kingma2015adam} with a learning rate of 3e-3 for every Gemma Scope 2 run (except the 1e-3 rate check in Section~4.4), alongside betas 0.9 and 0.999, batches of 4,096, and gradient clipping at norm 1, while the meta-SAE decoder rows are rescaled to unit length.
+The learning rate was decided after tuning (Appendix~B).
+To recover dead latents, AuxK \citep{gao2025scaling}, at weight 1/32, trains meta-latents that have been inactive for 5 epochs.
+Each sweep run (not the controls or the rate check) trains for 2,000 epochs, and then trains for another 2,000 epochs if our length rule (Appendix~C) finds that validation MSE still falls or real agreement still rises meaningfully.
+
+\paragraph{Noise twins.}
+Each parent's noise twin is one set of Gaussian rows, as many as the parent's rows, drawn with the mean and covariance of the parent's unit rows and rescaled to unit length.
+For a Gemma Scope 2 parent, twin meta-SAEs of every width and seed train on an 80\% split of these rows, as many as the real training rows, while the reference twin trains on all of them.
+Note that the sampling, 80\% training subset, and rescaling shift the noise twin's statistics, in that the largest covariance eigenvalue of its training rows is 6.0\% to 9.5\% below that of each parent's unit rows for the five main parents (18.4\% for the 4B 16k and 9.4\% for the 270M 16k).
+
+\paragraph{Measuring agreement.}
+Decoder rows between two meta-SAE runs are matched one-to-one to maximize signed cosine \citep{kuhn1955hungarian}, similar to \citet{fel2025archetypal}.
+Raw agreement is then computed as the matched cosine averaged over meta-latents and then over the 28 seed pairs.
+Excess agreement is raw agreement with noise twin raw agreement subtracted:
+\begin{equation}
+  A = \operatorname{mean}_{i<j} \max\nolimits_{\pi} \operatorname{mean}_{l} \cos(u_{i,l}, u_{j,\pi(l)}), \qquad \Delta A = A_{\mathrm{real}} - A_{\mathrm{twin}},
+  \label{eq:agreement}
+\end{equation}
+where $u_{i,l}$ is decoder row $l$ for seed $i$ and $\pi$ a bijective permutation mapping of the decoder row indices.
+The average share (over the seed pairs) of matched pairs at cosine 0.7 or more is named the recurring fraction.
+Using \citeauthor{bussmann2024batchtopk}'s \citeyearpar{bussmann2024batchtopk} activation threshold fitted after training, we measure live-only agreement by only matching meta-latents that activate for at least one training row.
+Uncertainty is reported as 90\% leave-one-seed-out jackknife t intervals with 7 degrees of freedom \citep{efron1979bootstrap}, which measure seed-to-seed variation for a fixed parent and split, with the Gaussian rows also held fixed.
+We also use them to define near-best widths: the top width, which has the largest excess agreement, and any width whose 90\% interval on its gap to the top width contains 0.
+The seeds cannot show that such a width is worse than the top.
+At each model size, the six main widths are compared twice, once at 2,000 epochs and once at each width's longest length.
+Both comparisons are repeated at 4B with width 1/256 added.
+
+\paragraph{Experiments.}
+The reference configuration reproducibility experiment trains meta-SAE seeds of width 3/64 (2,304 meta-latents) on all 49,152 unit rows of \citeauthor{bloom2024gpt2featuresplitting}'s \citeyearpar{bloom2024gpt2featuresplitting} GPT-2 small SAE's block 8 input \citep{radford2019language}, which has 768 hidden dimensions.
+\citeauthor{leask2025canonical}'s \citeyearpar{leask2025canonical} Appendix A.6 links the parent SAE's release, while their text details 2,000 epochs and a batch size of 4,096, and we take a learning rate of 1e-3 from their release (their text says 1e-4).
+However, we use different AuxK, Adam, and gradient clipping parameters in our trainer's code---so that both the reference and sweep experiments use the same trainer---and Appendix~A compares them with the release's config.
+The main width and model size sweep covers the five main parent Gemma Scope 2 SAEs at widths 1/4 to 1/128, plus 1/256 at 270M and 4B.
+
+\paragraph{Controls.}
+To control for width, meta-latent count, and training row count, we execute 15 control meta-SAE setups (eight seeds and eight noise twins per setup, making 240 runs) that come from five sets of 16,384 parent SAE rows and three widths.
+The five parent row sets are three independent random quarter draws of the 4B 65k-latent parent's rows, the 4B 16k parent's rows, and the rows of the 270M 16k parent (same latent count per hidden dimension as the 4B 65k parent).
+The widths are 1/4, 1/16, and 1/64 (4,096, 1,024, and 256 meta-latents).
+Each run trains for 6,500 epochs (so that we match the 26,000 steps of a 65k parent's 2,000 epochs) and is then compared with the 65k parent of the same model at the same width and, separately, at the same meta-latent count (Section~4.3).
+To further validate our conclusions that depend on a single learning rate, we also redo the 27B (at widths 1/4, 1/32, 1/64, and 1/128) and 270M (at widths 1/64 and 1/128) runs at learning rate 1e-3 for 2,000 epochs (Section~4.4).

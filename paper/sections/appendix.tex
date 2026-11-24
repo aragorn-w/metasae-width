@@ -1,0 +1,224 @@
+\section{Recipe validation and the reference configuration}
+All intervals in these appendices are 90\% leave-one-seed-out jackknife intervals over seeds.
+
+\paragraph{Recipe validation.}
+To ensure our recipe reproduces the release \citep{leask2024metasaerelease}, we trained eight real meta-SAEs (seeds 0 to 7).
+Note that \citet{leask2025canonical} do not provide a link to the release, so we match the two by owner, name, and settings.
+On both our seeds and their release, explained variance is one minus the mean squared residual over the mean squared deviation of the rows from their column mean, with all rows reconstructed as one batch under BatchTopK selection.
+Our seeds' explained variance on the training rows (0.5504 to 0.5511) differs from the release's (0.5514) by at most 0.0010, well within our 0.03 tolerance, while no real or twin meta-latent is dead (never active on a training row under the fitted threshold).
+\citet{leask2025canonical} report that their meta-SAE explains 55.47\% of the variance, but do not specify how they compute this.
+
+\paragraph{Settings and their sources.}
+Certain released configuration fields (Table~\ref{tab:app-settings}) seem ambiguous about how the release's weights were trained, such as the config's epochs field being 5000 while its repository name ends in 0.001\_2000, or aux\_penalty and max\_grad\_norm, which we reasonably infer to be its AuxK weight and clipping threshold, respectively, based only on their field names.
+
+\begin{table}[!htbp]
+  \caption{Settings for the reference configuration by source, where \citeauthor{leask2025canonical}'s Appendix A.2 values are for TopK SAEs in general. A blank means that the setting is not in their text, and $\ast$ means it is unknown whether it differs from our unit rows (row norms not recorded).}
+  \label{tab:app-settings}
+  \centering
+  \small
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Setting & This study & Leask et al., text & Released config \\
+    \midrule
+    Meta-latents & 2,304 & 2,304 & dict\_size 2304 \\
+    Active per row & k = 4, batch top-k & 4 on average, BatchTopK & top\_k 4, sae\_type topk \\
+    Training rows & all 49,152, unit length & 49,152 samples & input\_unit\_norm false$^\ast$ \\
+    Epochs & 2,000 & 2,000 & 5000 \\
+    Batch & 4,096 & 4,096 & 16384 \\
+    Learning rate & 1e-3 & 1e-4 & 0.001 \\
+    Adam betas, eps & 0.9, 0.999, 1e-8 & & 0.9, 0.99, no eps field \\
+    Gradient clipping & norm 1 & & max\_grad\_norm 100000 \\
+    AuxK weight & 1/32 & usually 1/32 (App. A.2) & aux\_penalty 0.0625 \\
+    Auxiliary latents & 512 & usually 512 (App. A.2) & top\_k\_aux 512 \\
+    Dead after & 5 passes (245,760 rows) & & n\_batches\_to\_dead 100 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier
+\section{Learning-rate tuning}
+To help validate our broadly used learning rate of 3e-3, we trained real meta-SAEs with a separate tuning seed (100) at rates 1e-3, 3e-3, and 1e-2 for the main sweep's 30 setups, 4B 65k parent at width 1/256, 4B 16k at three widths, and the 4B 65k's first quarter draw at three widths.
+We compared the three rates' validation MSE, measured on the main seeds' held-out rows, at epoch 2k, and looked for gaps larger than 1\%.
+Two of the MSE gaps between 3e-3 and the best rate exceeded our 1\% tolerance: the 4B 16k parent (2.01\%) and 12B parent (1.34\%) at width 1/4, where 1e-2 is their best tested learning rate.
+Other gaps are at most 0.87\%.
+However, we still decided to reuse 3e-3 for these two setups to keep one shared learning rate across all setups.
+We did not do learning rate checks for the 270M 16k control parent or the 4B 65k parent's second and third quarter draws at widths 1/4, 1/16, and 1/64, or for the 270M parent at width 1/256.
+We also did not do a learning rate check for the noise twins and the reference configuration, since the latter uses its release's 1e-3 learning rate.
+Note that the 4B 16k parent and the first quarter draw were compared at 2,000 epochs rather than the 6,500 epochs of their main runs.
+
+\paragraph{Rate check at 1e-3.}
+Separate from the learning rate tuning, we also retrained all eight real and noise twin seeds at 1e-3 for 270M (at widths 1/64 and 1/128) and 27B (at widths 1/4, 1/32, 1/64, and 1/128) to see if the width trends were only a result of the shared 3e-3 learning rate.
+At \mbox{1e-3}, 270M excess agreement stays negative at widths 1/64 ($-$0.077) and 1/128 ($-$0.080) while 27B excess agreement drops at the four tested widths---by 0.020 [0.006, 0.034] at 1/4, and by 0.073 to 0.033 from 1/32 to 1/128.
+However, these drops still keep 27B's narrow widths above 1/4 with non-overlapping intervals, though 1/32 goes from first among them at 3e-3 to last at 1e-3.
+
+\section{Length rule}
+When the length rule extends a setup, it continues the same runs, including the twins and the tuning run.
+The rule has two tests.
+The loss test fires when the seed-100 tuning run at 3e-3 ends with a validation MSE more than 1\% below its value a tenth of the run earlier (at 2,000 epochs, steps 26,000 and 23,400).
+The agreement test fires when the eight real seeds' mean agreement rises by more than 0.005 from the halfway snapshot to the final dictionary, without looking at the twins.
+If neither test fires, the setup has converged, while if either fires after an extension, we record the setup as not converged without extending it a second time.
+Both comparisons are strict, with no margin.
+Only the agreement test ever fired (the largest MSE drop was 0.35\%).
+
+\section{Training-row against held-out fit}
+Training-row fit is the variance explained on all of a run's own training rows, while held-out fit is the same but on its test rows, with each scored as one batch under batch top-k selection.
+Note that a twin's training rows are its own Gaussian rows, while its test rows are the same as the real run's.
+At width 1/4, real meta-SAEs explain 4.1 to 5.9 times as much variance on training rows as on held-out rows.
+Real held-out fit, on the other hand, stays within 0.118 to 0.139 from 1/4 to 1/128 at 270M and varies by at most 0.011 at each other size (Table~\ref{tab:app-fit}).
+Also, real held-out fit beats the twin's in all 30 setups, by 0.015 to 0.060.
+
+\begin{table}[!htbp]
+  \caption{Variance explained (training rows / held-out rows) at 2,000 epochs, along with the percent of dead meta-latents at width 1/4, as seed means without intervals. Below 1/4, only the 27B real runs have any dead meta-latents (at most 0.0488\%).}
+  \label{tab:app-fit}
+  \centering
+  \small
+  \begin{tabular}{@{}ll*{7}{@{\hspace{6pt}}r}@{}}
+    \toprule
+    Size & Role & 1/4 & 1/8 & 1/16 & 1/32 & 1/64 & 1/128 & Dead (\%) \\
+    \midrule
+    270M & real & 0.548/0.134 & 0.400/0.139 & 0.315/0.139 & 0.259/0.137 & 0.221/0.130 & 0.192/0.118 & 0 \\
+    & twin & 0.527/0.102 & 0.379/0.109 & 0.288/0.108 & 0.231/0.101 & 0.193/0.090 & 0.165/0.077 & 0 \\
+    1B & real & 0.481/0.082 & 0.326/0.082 & 0.233/0.080 & 0.177/0.079 & 0.141/0.078 & 0.117/0.074 & 0.0008 \\
+    & twin & 0.454/0.053 & 0.302/0.056 & 0.213/0.057 & 0.160/0.055 & 0.127/0.051 & 0.105/0.046 & 0 \\
+    4B & real & 0.454/0.092 & 0.306/0.103 & 0.223/0.103 & 0.175/0.101 & 0.145/0.100 & 0.125/0.097 & 1.0 \\
+    & twin & 0.348/0.065 & 0.264/0.070 & 0.183/0.071 & 0.137/0.072 & 0.112/0.073 & 0.097/0.075 & 22.3 \\
+    12B & real & 0.420/0.075 & 0.273/0.086 & 0.193/0.086 & 0.150/0.086 & 0.125/0.085 & 0.109/0.083 & 1.7 \\
+    & twin & 0.340/0.055 & 0.244/0.060 & 0.166/0.061 & 0.123/0.063 & 0.098/0.065 & 0.085/0.068 & 18.1 \\
+    27B & real & 0.393/0.089 & 0.285/0.089 & 0.204/0.090 & 0.157/0.088 & 0.127/0.085 & 0.108/0.082 & 14.5 \\
+    & twin & 0.334/0.030 & 0.233/0.044 & 0.157/0.050 & 0.116/0.052 & 0.093/0.054 & 0.080/0.058 & 17.1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Full tables}
+
+\subsection{Model size}
+Table~\ref{tab:app-size} includes the reference configuration, width 1/4, and every width that is near-best under some view (Section~4.2), each at both 2,000 epochs and its longest training length.
+Each of the two views has its own top width and near-best set: the main measure (one-to-one excess agreement over all meta-latents) and live-only (the same but over only live meta-latents).
+For the main measure only, we also recorded the top width's lead over 1/4, which is 0.050 [0.039, 0.062], 0.110 [0.094, 0.126] and 0.184 [0.174, 0.194] at 4B, 12B and 27B at 2,000 epochs, compared to 0.046 [0.034, 0.058], 0.118 [0.102, 0.133] and 0.177 [0.166, 0.188] at their longest length, while it is 0 at 270M and 1B since 1/4 is the top width there.
+Differences between sizes have no intervals.
+With width 1/256 added, 4B's main and live-only near-best sets become \{1/128, 1/256\} at 2,000 epochs, with 1/64 left out by a gap of 0.014 [0.003, 0.025], and \{1/64, 1/128, 1/256\} at 4,000 epochs.
+The recurring fraction has no near-best sets or gap intervals; Table~\ref{tab:app-recurring} gives it at every width, without intervals.
+
+\begin{table}[!htbp]
+  \caption{Real and twin agreement across model sizes, along with the two views with intervals, at width 1/4 and every width that is near-best under some view, with the reference configuration in the first row. Bold marks each view's top among the six main widths, $\ast$ marks near-best widths that are not the top, and $\dagger$ marks 4B's top with 1/256 included. 270M's 2,000-epoch and longest-length rows coincide.}
+  \label{tab:app-size}
+  \centering
+  \small
+  \begin{tabular}{@{}lll*{2}{@{\hspace{5pt}}r}*{2}{@{\hspace{5pt}}l}@{}}
+    \toprule
+    Parent & Epochs & Width & Real & Twin & Main & Live-only \\
+    \midrule
+    GPT-2 & 2,000 & 3/64 & 0.737 & 0.338 & 0.400 [0.397, 0.402] & 0.400 [0.397, 0.402] \\
+    \midrule
+    270M & 2,000 & 1/4 & 0.338 & 0.294 & \textbf{0.043 [0.043, 0.044]} & \textbf{0.043 [0.043, 0.044]} \\
+    1B & 2,000 & 1/4 & 0.339 & 0.259 & \textbf{0.080 [0.079, 0.081]} & \textbf{0.080 [0.079, 0.081]} \\
+    & 4,000 & 1/4 & 0.342 & 0.258 & \textbf{0.084 [0.083, 0.085]} & \textbf{0.084 [0.083, 0.085]} \\
+    4B & 2,000 & 1/4 & 0.359 & 0.197 & 0.162 [0.156, 0.167] & 0.130 [0.128, 0.132] \\
+    & & 1/64 & 0.382 & 0.177 & 0.205 [0.202, 0.208]$^\ast$ & 0.205 [0.202, 0.208]$^\ast$ \\
+    & & 1/128 & 0.436 & 0.224 & \textbf{0.212 [0.204, 0.220]} & \textbf{0.212 [0.204, 0.220]} \\
+    & & 1/256 & 0.476 & 0.257 & 0.219 [0.209, 0.229]$^\dagger$ & 0.219 [0.209, 0.229]$^\dagger$ \\
+    & 4,000 & 1/4 & 0.371 & 0.204 & 0.167 [0.161, 0.173] & 0.138 [0.135, 0.140] \\
+    & & 1/64 & 0.391 & 0.181 & 0.210 [0.207, 0.214]$^\ast$ & 0.210 [0.207, 0.214]$^\ast$ \\
+    & & 1/128 & 0.444 & 0.231 & \textbf{0.213 [0.205, 0.221]} & \textbf{0.213 [0.205, 0.221]} \\
+    & & 1/256 & 0.479 & 0.261 & 0.219 [0.209, 0.229]$^\dagger$ & 0.219 [0.209, 0.229]$^\dagger$ \\
+    12B & 2,000 & 1/4 & 0.323 & 0.216 & 0.107 [0.095, 0.118] & 0.080 [0.076, 0.083] \\
+    & & 1/64 & 0.367 & 0.150 & \textbf{0.217 [0.207, 0.226]} & \textbf{0.217 [0.207, 0.226]} \\
+    & 4,000 & 1/4 & 0.340 & 0.226 & 0.115 [0.107, 0.122] & 0.087 [0.082, 0.092] \\
+    & & 1/64 & 0.387 & 0.155 & \textbf{0.232 [0.221, 0.243]} & \textbf{0.232 [0.221, 0.243]} \\
+    27B & 2,000 & 1/4 & 0.346 & 0.229 & 0.117 [0.108, 0.125] & 0.134 [0.130, 0.138] \\
+    & & 1/32 & 0.442 & 0.141 & \textbf{0.301 [0.296, 0.305]} & \textbf{0.301 [0.296, 0.306]} \\
+    & & 1/64 & 0.472 & 0.174 & 0.299 [0.292, 0.305]$^\ast$ & 0.299 [0.293, 0.305]$^\ast$ \\
+    & 4,000 & 1/4 & 0.379 & 0.239 & 0.139 [0.130, 0.149] & 0.151 [0.146, 0.155] \\
+    & & 1/32 & 0.462 & 0.145 & \textbf{0.317 [0.311, 0.322]} & \textbf{0.317 [0.311, 0.322]} \\
+    & & 1/64 & 0.488 & 0.177 & 0.311 [0.306, 0.316]$^\ast$ & 0.311 [0.306, 0.316]$^\ast$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+  \caption{Model size: recurring fraction (\%) of the real meta-SAEs, with the noise twins' in parentheses, at 2,000 epochs and, for setups the length rule extended, 4,000; means over the 28 seed pairs, no intervals. Blank: not trained at that width or length. Twin fractions under 1\% are coarse (0.0: under 0.05). The reference (GPT-2, width 3/64, 2,000 epochs) has 64.0 (0.07).}
+  \label{tab:app-recurring}
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}llrrrrrrr@{}}
+    \toprule
+    Parent & Epochs & 1/4 & 1/8 & 1/16 & 1/32 & 1/64 & 1/128 & 1/256 \\
+    \midrule
+    270M & 2,000 & 2.6 (0.1) & 1.4 (0.0) & 1.7 (0.0) & 1.9 (0.1) & 2.3 (0.2) & 2.5 (0.7) & 4.2 (1.2) \\
+    1B & 2,000 & 7.3 (0.1) & 6.4 (0.0) & 4.9 (0.0) & 4.3 (0.0) & 4.6 (0.1) & 4.8 (0.5) & \\
+    & 4,000 & 7.7 (0.1) & & 5.3 (0.0) & & & & \\
+    4B & 2,000 & 8.6 (0.1) & 11.1 (0.0) & 14.0 (0.1) & 16.2 (0.2) & 18.3 (0.4) & 20.0 (0.9) & 20.2 (2.0) \\
+    & 4,000 & 9.6 (0.1) & 12.0 (0.0) & 14.8 (0.1) & 17.1 (0.2) & 19.2 (0.4) & 20.6 (0.8) & 20.7 (2.0) \\
+    12B & 2,000 & 6.1 (0.4) & 8.6 (0.1) & 12.8 (0.1) & 17.2 (0.2) & 20.5 (0.3) & 19.4 (0.8) & \\
+    & 4,000 & 7.1 (0.4) & 9.6 (0.1) & 14.3 (0.1) & 19.2 (0.2) & 22.8 (0.3) & 21.0 (0.8) & \\
+    27B & 2,000 & 12.1 (0.6) & 17.8 (0.1) & 24.3 (0.1) & 27.4 (0.3) & 27.1 (0.6) & 27.8 (1.1) & \\
+    & 4,000 & 14.5 (0.7) & 20.7 (0.1) & 27.2 (0.1) & 29.9 (0.3) & 29.3 (0.6) & 29.3 (1.1) & \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Controls}
+Each quarter draw's twin trains on its own quarter of the 4B 65k parent's noise rows.
+At width 1/4 and 2,000 epochs, 33.9\% of the 4B 16k parent's real meta-latents are dead, compared to 1.5\% for its twins, while neither has any dead meta-latents at 6,500 epochs.
+
+\begin{table}[!ht]
+  \caption{Excess agreement of the controls, with intervals. Control widths are fractions of 16,384 rows (4,096, 1,024 and 256 meta-latents), while 65k widths are fractions of 65,536 rows (16,384, 4,096 and 1,024 meta-latents). At width 1/256 (256 meta-latents), 4B 65k scores 0.219 [0.209, 0.229] and 270M 65k scores $-$0.081 [$-$0.091, $-$0.071].}
+  \label{tab:app-arms}
+  \centering
+  \small
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Epochs, control & 1/4 & 1/16 & 1/64 \\
+    \midrule
+    2,000, quarter draw 1 & 0.060 [0.059, 0.062] & 0.025 [0.013, 0.037] & 0.124 [0.115, 0.133] \\
+    2,000, quarter draw 2 & 0.060 [0.058, 0.063] & 0.022 [0.013, 0.032] & 0.107 [0.097, 0.117] \\
+    2,000, quarter draw 3 & 0.061 [0.057, 0.065] & 0.033 [0.021, 0.046] & 0.121 [0.114, 0.128] \\
+    2,000, 4B 16k & 0.052 [0.042, 0.062] & 0.257 [0.252, 0.262] & 0.290 [0.280, 0.301] \\
+    2,000, 270M 16k & 0.047 [0.044, 0.049] & $-$0.017 [$-$0.020, $-$0.014] & $-$0.055 [$-$0.063, $-$0.046] \\
+    2,000, 4B 65k & 0.162 [0.156, 0.167] & 0.174 [0.172, 0.176] & 0.205 [0.202, 0.208] \\
+    2,000, 270M 65k & 0.043 [0.043, 0.044] & $-$0.026 [$-$0.027, $-$0.024] & $-$0.077 [$-$0.081, $-$0.073] \\
+    \midrule
+    6,500, quarter draw 1 & 0.077 [0.075, 0.079] & 0.023 [0.010, 0.036] & 0.133 [0.123, 0.143] \\
+    6,500, quarter draw 2 & 0.076 [0.073, 0.079] & 0.022 [0.012, 0.032] & 0.108 [0.093, 0.122] \\
+    6,500, quarter draw 3 & 0.078 [0.074, 0.081] & 0.033 [0.019, 0.048] & 0.129 [0.120, 0.138] \\
+    6,500, 4B 16k & 0.208 [0.205, 0.211] & 0.271 [0.262, 0.279] & 0.296 [0.285, 0.306] \\
+    6,500, 270M 16k & 0.049 [0.047, 0.051] & $-$0.026 [$-$0.029, $-$0.023] & $-$0.068 [$-$0.076, $-$0.060] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+  \caption{Difference in excess agreement between each control and its matching 65k parent (control minus 65k parent), with intervals. For the same meta-latent count, the control's widths 1/4, 1/16 and 1/64 are compared with the 65k parent's 1/16, 1/64 and 1/256, respectively. For equal steps, the control is at 6,500 epochs and the 65k parent at 2,000.}
+  \label{tab:app-arm-diff}
+  \centering
+  \small
+  \begin{tabular}{@{}l*{2}{@{\hspace{6pt}}l}@{}}
+    \toprule
+    Control, width & Same width, equal steps & Same count, equal steps \\
+    \midrule
+    Draw 1, 1/4 & $-$0.085 [$-$0.090, $-$0.079] & $-$0.097 [$-$0.100, $-$0.095] \\
+    Draw 1, 1/16 & $-$0.151 [$-$0.164, $-$0.139] & $-$0.182 [$-$0.197, $-$0.168] \\
+    Draw 1, 1/64 & $-$0.072 [$-$0.082, $-$0.062] & $-$0.086 [$-$0.103, $-$0.069] \\
+    Draw 2, 1/4 & $-$0.086 [$-$0.090, $-$0.081] & $-$0.098 [$-$0.101, $-$0.096] \\
+    Draw 2, 1/16 & $-$0.152 [$-$0.163, $-$0.142] & $-$0.184 [$-$0.195, $-$0.172] \\
+    Draw 2, 1/64 & $-$0.098 [$-$0.112, $-$0.083] & $-$0.112 [$-$0.127, $-$0.096] \\
+    Draw 3, 1/4 & $-$0.084 [$-$0.089, $-$0.079] & $-$0.097 [$-$0.100, $-$0.093] \\
+    Draw 3, 1/16 & $-$0.141 [$-$0.156, $-$0.126] & $-$0.172 [$-$0.186, $-$0.158] \\
+    Draw 3, 1/64 & $-$0.076 [$-$0.086, $-$0.066] & $-$0.090 [$-$0.103, $-$0.077] \\
+    4B 16k, 1/4 & 0.047 [0.040, 0.053] & 0.034 [0.031, 0.037] \\
+    4B 16k, 1/16 & 0.096 [0.088, 0.105] & 0.065 [0.056, 0.075] \\
+    4B 16k, 1/64 & 0.090 [0.078, 0.103] & 0.077 [0.061, 0.092] \\
+    270M 16k, 1/4 & 0.006 [0.003, 0.008] & 0.075 [0.072, 0.078] \\
+    270M 16k, 1/16 & $-$0.000 [$-$0.003, 0.003] & 0.051 [0.046, 0.056] \\
+    270M 16k, 1/64 & 0.009 [$-$0.001, 0.018] & 0.013 [0.000, 0.025] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Quarter-draw spread}
+With only three draws, we get a range rather than a standard error, so this comparison is descriptive only.
+At 2,000 epochs, the draws' excess agreement spreads by 0.001, 0.011 and 0.017 at widths 1/4, 1/16 and 1/64 (0.002, 0.012 and 0.025 at 6,500 epochs), compared to their own 90\% half-widths of 0.001 to 0.004, 0.009 to 0.012 and 0.007 to 0.010 (0.002 to 0.003, 0.010 to 0.014 and 0.009 to 0.015 at 6,500 epochs).
+Only at 1/64 does the spread exceed every draw's half-width, at 1.6 to 2.4 times the half-width (1.7 to 2.8 times at 6,500 epochs).
+This is our only evidence on variation across row samples, and only at 13,107 training rows.

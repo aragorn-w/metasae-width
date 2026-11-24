@@ -1,0 +1,59 @@
+\begin{tikzpicture}[
+  font=\footnotesize,
+  >={Stealth[length=3.4pt,width=3pt]},
+  box/.style={draw, rounded corners=1.5pt, line width=0.5pt, align=center, inner xsep=3.5pt, inner ysep=2pt, minimum height=0.64in},
+  real/.style={box, draw=acc!85!black, fill=acc!10},
+  twin/.style={box, draw=black!80, fill=white},
+  stack/.style={draw, rounded corners=1.5pt, line width=0.5pt, fill=white},
+  flow/.style={->, line width=0.5pt},
+  lane/.style={anchor=south west, inner sep=0pt, yshift=2.5pt, font=\footnotesize\bfseries},
+]
+\definecolor{acc}{RGB}{26,95,160}
+\def\dy{1.0in}
+\def\g{0.125in}
+% real lane
+\node[real, minimum width=0.56in] (r1) {Parent\\decoder\\rows\\$n\times d$};
+\node[real, minimum width=0.50in, right=\g of r1] (r2) {Unit\\rows};
+\node[real, minimum width=0.58in, right=\g of r2] (r3) {Train, val,\\test rows\\80/10/10};
+\node[real, minimum width=0.84in, right=\g of r3] (r4) {Meta-SAE\\BatchTopK, $k{=}4$\\$wn$ meta-latents\\on train rows};
+\node[real, minimum width=0.70in, right=\g of r4] (r5) {One-to-one\\matching\\28 seed pairs};
+\node[real, minimum width=0.60in, right=\g of r5] (r6) {Real\\agreement};
+% twin lane
+\node[twin, minimum width=0.56in, below=\dy of r1.center, anchor=center] (t1) {Gaussian\\rows\\$n\times d$};
+\node[twin, minimum width=0.50in, right=\g of t1] (t2) {Unit\\rows};
+\node[twin, minimum width=0.58in, right=\g of t2] (t3) {Train\\rows\\80\%};
+\node[twin, minimum width=0.84in, right=\g of t3] (t4) {Meta-SAE\\BatchTopK, $k{=}4$\\$wn$ meta-latents\\on train rows};
+\node[twin, minimum width=0.70in, right=\g of t4] (t5) {One-to-one\\matching\\28 seed pairs};
+\node[twin, minimum width=0.60in, right=\g of t5] (t6) {Twin\\agreement};
+\begin{pgfonlayer}{background}
+  % seeds as a stack of cards behind each meta-SAE box
+  \foreach \n/\c in {r4/acc!85!black,t4/black!80} {
+    \foreach \s in {3,6} {
+      \draw[stack, draw=\c] ($(\n.north west)+(\s*0.7pt,\s pt)$) rectangle ($(\n.north east)+(-\s*0.7pt,\s pt-8pt)$);
+    }
+  }
+\end{pgfonlayer}
+\node[anchor=south, inner sep=1pt] at ([yshift=8pt]r4.north) {8 seeds};
+\node[anchor=south, inner sep=1pt] at ([yshift=8pt]t4.north) {8 seeds};
+\foreach \a/\b in {r1/r2,r2/r3,r3/r4,r4/r5,r5/r6,t1/t2,t2/t3,t3/t4,t4/t5,t5/t6}
+  \draw[flow] (\a.east) -- (\b.west);
+% twin rows take their mean and covariance from the parent's unit rows
+\coordinate (mid) at ($(r2.south)!0.5!(t1.north)$);
+\coordinate (cm) at (r2.south |- mid);
+\coordinate (land) at ([xshift=-0.1in]t1.north east);
+\draw[flow, dashed] (r2.south) -- (cm) -- (land |- mid) -- (land);
+\node[anchor=west, inner sep=1pt] at ([xshift=3pt]cm) {mean, covariance};
+% columns 1 to 3 of both lanes are shared by all widths and seeds
+\coordinate (bl) at ([yshift=-6pt]t1.south west);
+\coordinate (br) at ([yshift=-6pt]t3.south east);
+\draw[line width=0.5pt, black!80] (bl |- t1.south) -- (bl) -- (br) -- (br |- t3.south);
+\node[below, inner sep=1.5pt, text=black!80] at ($(bl)!0.5!(br)$) {shared by all widths and seeds};
+% excess
+\node[draw=acc!85!black, fill=acc, text=white, rounded corners=1.5pt, line width=0.5pt, align=center, inner xsep=3.5pt, inner ysep=2pt,
+      minimum width=0.62in, minimum height=1.64in, anchor=west]
+  (ex) at ($(r6.east)!0.5!(t6.east)+(\g,0)$) {Excess\\agreement\\[3pt]real${}-{}$twin};
+\draw[flow] (r6.east) -- (r6.east -| ex.west);
+\draw[flow] (t6.east) -- (t6.east -| ex.west);
+\node[lane] at (r1.north west) {Real};
+\node[lane] at (t1.north west) {Twin};
+\end{tikzpicture}

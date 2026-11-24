@@ -1,0 +1,7 @@
+\section{Conclusion}
+
+Under the reference configuration, most meta-latents (64.0\%) recur across seeds, compared to only 0.07\% for the noise twins.
+As for the sweep's five Gemma Scope 2 parents, which differ from the reference in several ways, they have at most 29.9\% of meta-latents recurring (27B, width 1/32, 4k epochs), while for Gemma 3 270M and 1B, few meta-latents recur (at most 2.6\% and 7.7\%, respectively) and excess agreement ranks 1/4 (the widest main width) as the best.
+However, from 4B to 27B, widths 1/32 to 1/128 beat 1/4 on excess agreement at both 2k and 4k epochs (Section~4.2).
+Notably, raw and excess agreement pick different top widths for 270M and 27B, and narrowly for 12B (Section~4.1), so we argue that settings carried over to a new parent should be judged by excess agreement over noise twins rather than raw agreement.
+Whether these findings hold for other model families, SAE releases, layers and learning rates remains to be tested (Section~6).

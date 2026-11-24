@@ -1,0 +1,24 @@
+\section{Limitations}
+
+\begin{itemize}
+  \item \textbf{One release.}
+    Since all of the parent SAEs in the main sweep are Gemma Scope 2 SAEs on Gemma 3, our findings may reflect quirks of this one release rather than general effects.
+  \item \textbf{Size moves with other variables.}
+    Size also changes alongside hidden size (640 to 5,376), latents per hidden dimension, pretraining tokens (more at 270M than 1B), and whether the model takes image input (from 4B up; Table~\ref{tab:parents}).
+    Our assumption of middle layers (after block $N/2$) having comparable representations across Gemma 3 model sizes may also not sufficiently hold due to our larger models potentially having emergent abilities \citep{wei2022emergent} and thus altering what their middle layers represent.
+  \item \textbf{Fixed settings.}
+    Our findings are largely downstream of just one set of settings we did not vary when measuring agreement: a 3e-3 learning rate, $k$ = 4, 4,096 batch size, 1/32 AuxK weight, and 80/10/10 splits.
+    The excess agreement check at 1e-3 only covers four 27B widths and two 270M widths at 2k epochs, but resulted in a reordering of 27B's narrow widths (Appendix~B).
+  \item \textbf{Frozen parents only.}
+    We did not investigate jointly training the meta-SAE alongside its parent SAE \citep{levinson2026metasaes,zhao2026saepp}, nor \citeauthor{levinson2026metasaes}'s \citeyearpar{levinson2026metasaes} question of meta-SAE width during said joint training.
+  \item \textbf{Intervals cover seeds only.}
+    The main sweep's excess agreement intervals only sample from meta-SAEs with different seeds, not different training rows.
+    However, the three random quarters of the 4B parent's rows resulted in an excess agreement spread that is under the mean seed half-width (half of each draw's 90\% interval) at widths 1/4 and 1/16, but about twice it at 1/64 (Appendix~E).
+  \item \textbf{Matryoshka parents.}
+    The Gemma Scope 2 technical paper says its SAEs were Matryoshka-trained \citep{mcdougall2025gemmascope2}, and meta-SAEs explain less of a Matryoshka parent's decoder variance than of a BatchTopK parent's \citep{bussmann2025matryoshka,korznikov2025ortsae}, so our findings may not carry over to non-Matryoshka parents.
+  \item \textbf{Parents' seed reproducibility unknown.}
+    No parent SAE was retrained or compared across seeds.
+  \item \textbf{Reproducibility only.}
+    Nothing here measures interpretability.
+    Higher automated interpretability scores \citep{paulo2025autointerp} are not guaranteed by higher raw or excess agreement across meta-SAE seeds, and we did not investigate whether recurring meta-latents are more easily explainable than nonrecurring meta-latents.
+\end{itemize}

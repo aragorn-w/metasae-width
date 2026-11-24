@@ -1,0 +1,28 @@
+\section{Related work}
+
+\begin{table}[t]
+  \caption{Published meta-SAE setups. Width is the meta-latent count as a percentage of the parent SAE's latent count. \citet{leask2025canonical} and \citet{bussmann2024metasae} use the same parent SAE and meta-latent count. ``Frozen parent'' means the meta-SAE is trained on a finished parent SAE while ``joint'' means the two are jointly trained. \citet{maiwald2025decodeglm} give no width percentage because they train on an unstated number of positive-F1 parent latents.}
+  \label{tab:published}
+  \centering\small
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Work & Parent SAE (latents) & Meta-latents (width) & Training \\
+    \midrule
+    \citet{bussmann2024metasae} & GPT-2 small, layer 8 (49,152) & 2,304 (4.7\%) & frozen parent \\
+    \citet{bussmann2025matryoshka} & SAEs (2,304 to 36,864) & 576 to 9,216 (25\%) & frozen parent \\
+    \citet{korznikov2025ortsae} & Gemma 2 2B, Llama 3 8B (65,536) & 16,384 (25\%) & frozen parent \\
+    \citet{levinson2026metasaes} & GPT-2 large, layer 20 (20,480) & 1,800 (8.8\%) & joint \\
+    \citet{zhao2026saepp} & 3 multimodal models (20,000) & 10,000 (50\%) & joint \\
+    \citet{maiwald2025decodeglm} & Nucleotide Transformer 500M (unstated) & 128 & frozen parent \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Meta-SAEs and their widths.}
+Meta-SAE width has been swept before, by \citeauthor{maiwald2025decodeglm} (\citeyear{maiwald2025decodeglm}; Table~\ref{tab:published}), but by balancing L0 sparsity against explained variance instead of agreement between seeds. \citet{levinson2026metasaes} left the investigation of meta-SAE width's effect on dictionary compression to future work, but no known studies explicitly research meta-SAE seed reproducibility.
+
+\paragraph{Agreement between SAE seeds.}
+\citet{paulo2025sae} is this paper's closest prior study, in which they treated latents as shared if one-to-one matching for encoder and decoder rows both agree and achieve a cosine of 0.7 or more, and then found shared fractions of about 0.8 (32 latents) and 0.3 (131K latents) for Pythia 160M, and 0.3 (131K latents) for Llama 3 8B. \citet{gerasimov2026unstable} observed only partial seed reproducibility for SAEs and that whether larger latent counts lowered or raised reproducibility depended on the model and layer. Their study varied SAE latent count and model layer for its effect on the fraction of features whose best match (many to one, cosine 0.7 or more) reappears in 95\% or more other seeds, while using an SAE trained on an untrained GPT-2 as a null baseline. Studies like \citet{song2026consistency} and \citet{cho2025faithfulsae} jointly vary other settings besides model size, such as choice of model layer and TopK's K. \citet{song2026consistency} also tuned TopK's K and penalty for PW-MCC. \citet{choi2026beyond}, however, vary latent count on four models while using model layers with the same hidden size and saw seed agreement mostly fall for larger SAE latent counts. When measuring seed agreement against a random-unit-vector baseline computed by formula, \citet{liu2026timescale} found that longer training, on Pythia 410M layer 21, narrowed seed agreement gaps between different widths while agreement kept rising without a plateau. Our agreement measure is taken from \citeauthor{fel2025archetypal}'s \citeyearpar{fel2025archetypal} one-to-one matched mean cosine, but without sign flips.
+
+\paragraph{Choosing size by stability.}
+For older, classical methods such as NMF, the number of components was chosen by how stable sample clusters and dictionaries are across restarts \citep{brunet2004metagenes,wu2016stanmf}, and \citet{greene2014howmany} chose topic count in topic models by one-to-one matched agreement over document subsamples. \citeauthor{horn1965rationale}'s \citeyearpar{horn1965rationale} parallel analysis is a precedent of subtracting a sampling error, estimated given random data, from eigenvalues to pick the number of factors in factor analysis. Similar to \citet{gerasimov2026unstable}, we train noise twins; they have as many decoder rows as the real data too, similar to \citeauthor{horn1965rationale}'s uncorrelated normal data \citep{dinno2009exploring}. But unlike \citet{gerasimov2026unstable} and \citet{liu2026timescale}, the noise twin's training rows are normalized Gaussian draws with the same mean and covariance as the parent's normalized decoder rows.
